@@ -1,4 +1,5 @@
 import { Module } from '../core/module';
+import clicksImg from '../img/clicks-img.jpg';
 
 export class ClicksModule extends Module {
 	#startGame = false;
@@ -7,7 +8,7 @@ export class ClicksModule extends Module {
 	#render() {
 		this.$container = document.createElement('div');
 		this.$container.className = 'timer-game-container';
-		document.body.append(this.$container);
+		document.querySelector('.main-container').append(this.$container);
 
 		const $containerImg = document.createElement('div');
 		$containerImg.className = 'container-img';
@@ -23,7 +24,7 @@ export class ClicksModule extends Module {
 		$containerImg.append(this.$timer);
 
 		this.$img = document.createElement('img');
-		this.$img.src = 'https://cs13.pikabu.ru/post_img/2023/02/01/7/1675250843175033598.jpg';
+		this.$img.src = clicksImg;
 		$containerImg.append(this.$img);
 
 		this.$button = document.createElement('button');
