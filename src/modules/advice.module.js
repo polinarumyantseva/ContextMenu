@@ -1,4 +1,5 @@
 import { Module } from '../core/module';
+import adviceImg from '../img/advice-img.png';
 
 const URL = 'https://api.adviceslip.com/advice';
 
@@ -8,49 +9,57 @@ export class AdviceModule extends Module {
 	};
 
 	trigger() {
-		const $adviceBlock = document.createElement('div');
-		$adviceBlock.className = 'advice';
+		if (this.state.advice === '') {
+			const $adviceBlock = document.createElement('div');
+			$adviceBlock.className = 'advice';
 
-		const $loader = document.createElement('span');
-		$loader.textContent = 'Loading ...';
-		$loader.id = 'loader';
-		$loader.setAttribute('hidden', '');
-		$adviceBlock.append($loader);
-		document.body.append($adviceBlock);
-		this.getAdvice($adviceBlock);
+			const $backgroundImg = document.createElement('img');
+			$backgroundImg.src = adviceImg;
+			$backgroundImg.className = 'advice_background';
+
+			$adviceBlock.append($backgroundImg);
+			document.querySelector('.main-container').append($adviceBlock);
+			this.getAdvice($adviceBlock);
+
+			const $newAdviceBtn = document.createElement('button');
+			$newAdviceBtn.className = 'new-advice-btn';
+			$newAdviceBtn.textContent = 'New advice?';
+			$adviceBlock.append($newAdviceBtn);
+
+			$newAdviceBtn.addEventListener('click', () => {
+				this.getAdvice($adviceBlock);
+			});
+		} else {
+			return -1;
+		}
 	}
 
-	async getAdvice($adviceBlock) {
+	async getAdvice(adviceBlock) {
 		try {
-			this.#toggleLoader();
 			const response = await fetch(URL);
 			if (!response.ok) {
 				throw new Error('Ошибка запроса');
 			}
 			this.state.advice = (await response.json()).slip.advice;
-			console.log(this.state.advice);
-			const adviceString = document.createElement('span');
+			let adviceString = adviceBlock.querySelector('#adviceString');
+			let deleteBtn = adviceBlock.querySelector('.delete-btn');
+			if (!adviceString) {
+				adviceString = document.createElement('span');
+				adviceString.id = 'adviceString';
+				adviceBlock.append(adviceString);
+				deleteBtn = document.createElement('button');
+				deleteBtn.textContent = '+';
+				deleteBtn.className = 'delete-btn';
+				adviceBlock.append(deleteBtn);
+			}
 			adviceString.textContent = this.state.advice;
-			adviceString.className = 'advice-string';
-			$adviceBlock.append(adviceString);
+			deleteBtn.addEventListener('click', () => {
+				this.state.advice = '';
+				adviceBlock.remove();
+			});
+			this.state.advice = '';
 		} catch (error) {
 			console.error(error);
-		} finally {
-			this.#toggleLoader();
-			console.log('Запрос выполнен');
-			setTimeout(() => {
-				$adviceBlock.remove();
-			}, 10000);
-		}
-	}
-
-	#toggleLoader() {
-		const $loader = document.querySelector('#loader');
-		const isHidden = $loader.hasAttribute('hidden');
-		if (isHidden) {
-			$loader.removeAttribute('hidden');
-		} else {
-			$loader.setAttribute('hidden', '');
 		}
 	}
 }

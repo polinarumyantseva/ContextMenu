@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	document.addEventListener('contextmenu', (e) => {
 		e.preventDefault();
+
+		const $mainContainer = document.querySelector('.main-container');
+		if ($mainContainer) $mainContainer.remove();
+
 		contextMenu.open(e);
 	});
 
@@ -20,11 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		e.stopPropagation();
 		const { target } = e;
 
+		contextMenu.close();
+
 		if (target.tagName === 'LI') {
 			const moduleName = target.dataset.type;
 
 			modules.forEach((item) => {
-				if (item.type === moduleName) item.trigger();
+				if (item.type === moduleName) {
+					const $mainContainer = document.createElement('div');
+					$mainContainer.className = 'main-container';
+					document.body.append($mainContainer);
+
+					item.trigger();
+				}
 			});
 		}
 	});
