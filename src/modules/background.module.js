@@ -1,18 +1,16 @@
 import { Module } from '../core/module';
+import { getRandomColor, random } from '../utils';
 
 export class BackgroundModule extends Module {
 	trigger() {
-		document.body.style.backgroundColor = this.#getRandomColor();
-	}
+		const firstColor = getRandomColor();
+		const secondColor = getRandomColor();
+		const randomGradientNumber = random(0, 360);
 
-	#getRandomColor() {
-		const letters = '0123456ABCDEFD';
-		let color = '#';
+		const $colorBlock = document.createElement('div');
+		$colorBlock.className = 'color-block';
+		document.querySelector('.main-container').append($colorBlock);
 
-		for (let i = 0; i < 6; i++) {
-			color += letters[Math.floor(Math.random() * 16)];
-		}
-
-		return color;
+		$colorBlock.style.background = `linear-gradient(${randomGradientNumber}deg, ${firstColor}, ${secondColor})`;
 	}
 }

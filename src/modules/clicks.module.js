@@ -73,15 +73,15 @@ export class ClicksModule extends Module {
 		}
 	}
 
-	#__animation(element) {
-		element.classList.toggle('active')
-		setTimeout(() => element.classList.toggle('animation'), 100)
+	#animation(element) {
+		element.classList.toggle('active');
+		setTimeout(() => element.classList.toggle('animation'), 100);
 	}
 
 	trigger() {
 		this.#render();
 
-		this.#__animation(this.$title)
+		this.#animation(this.$title);
 
 		const handleMouseDown = this.#handleClick.bind(this, 'down');
 		const handleMouseUp = this.#handleClick.bind(this, 'up');
@@ -92,13 +92,13 @@ export class ClicksModule extends Module {
 		this.#customTimer(this.$timer, 3000)
 			.then(() => {
 				this.#startGame = true;
-				this.#__animation(this.$title)
+				this.#animation(this.$title);
 				this.$title.textContent = 'Кликай как можно быстрее';
 				return this.#customTimer(this.$timer, 5000);
 			})
 			.then(() => {
 				this.#startGame = false;
-				this.#__animation(this.$title)
+				this.#animation(this.$title);
 				this.$title.textContent = 'Твой результат:';
 				this.$timer.textContent = this.#countClick;
 				this.$button.toggleAttribute('hidden');

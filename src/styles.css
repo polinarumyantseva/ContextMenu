@@ -11,6 +11,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	height: 100vh;
 	width: 100%;
+	background: url('./img/main-image.svg') no-repeat center;
 }
 
 .menu {
@@ -77,7 +78,7 @@ img.active {
 	position: absolute;
 	top: 25px;
 	color: white;
-	transition: all ease-in .2s
+	transition: all ease-in 0.2s;
 }
 
 .title.animation {
@@ -90,7 +91,7 @@ img.active {
 	font-size: 100px;
 	position: absolute;
 	color: white;
-	transition: all ease-in .2s
+	transition: all ease-in 0.2s;
 }
 
 button {
@@ -107,7 +108,7 @@ button {
 	height: 50px;
 	cursor: pointer;
 	transform: translateY(-40px);
-	transition: all ease-in .3s;
+	transition: all ease-in 0.3s;
 }
 
 button.animation {
@@ -126,20 +127,20 @@ button.animation {
 	width: 1px;
 	height: 1px;
 	transform: rotate(45deg);
-margin-bottom: 1.5vw;
+	margin-bottom: 1.5vw;
 	background-color: rgba(255, 255, 255, 0);
 	color: red;
 }
 
 .advice {
-display: flex;
-justify-content: center;
-align-items: center;
-height: 2vh;
-margin-top: 2%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 2vh;
+	padding-top: 2%;
 }
 
-.advice_background{
+.advice_background {
 	position: absolute;
 	top: 0px;
 	width: 100%;
@@ -151,8 +152,8 @@ margin-top: 2%;
 	border-radius: 0;
 }
 
-#adviceString{
-	font-size:  1vw;
+#adviceString {
+	font-size: 1.5vw;
 	margin-top: 1vh;
 	width: fit-content;
 	background-color: rgb(48, 23, 7);
@@ -161,4 +162,52 @@ margin-top: 2%;
 	padding: 3px;
 }
 
+.main-container {
+	width: 100vw;
+	height: 100vh;
+	background: #fff;
+	z-index: -1;
+	position: relative;
+}
 
+.color-block {
+	width: 100vw;
+	height: 100vh;
+	animation: bg-animation 1s ease-in-out;
+}
+
+@keyframes bg-animation {
+	0% {
+		opacity: 0;
+	}
+	10% {
+		opacity: 0.1;
+	}
+	20% {
+		opacity: 0.2;
+	}
+	30% {
+		opacity: 0.3;
+	}
+	40% {
+		opacity: 0.4;
+	}
+	50% {
+		opacity: 0.5;
+	}
+	60% {
+		opacity: 0.6;
+	}
+	70% {
+		opacity: 0.7;
+	}
+	80% {
+		opacity: 0.8;
+	}
+	90% {
+		opacity: 0.9;
+	}
+	100% {
+		opacity: 1;
+	}
+}
